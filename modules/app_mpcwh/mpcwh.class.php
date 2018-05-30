@@ -17,7 +17,7 @@ class mpcwh extends module {
 * @access private
 */
 function mpcwh() {
-  $this->name="mpcwh";
+  $this->name="app_mpcwh";
   $this->title="MPC Web Shell";
   $this->module_category="<#LANG_SECTION_APPLICATIONS#>";
   $this->checkInstalled();
@@ -157,7 +157,7 @@ function admin(&$out) {
 */
 function usual(&$out) {
  if ($this->owner->action=='apps') {
-  $this->redirect(ROOTHTML."modules/mpcwh/index.php");
+  $this->redirect(ROOTHTML."modules/app_mpcwh/index.php");
  }
  $this->admin($out);
 }
