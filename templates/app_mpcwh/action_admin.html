@@ -1,1 +1,28 @@
-1
+<h4><#LANG_OW_APP_NAME#></h4>
+<ul class="nav nav-tabs">     
+   <li [#if VIEW_MODE="" #] class="active" [#endif#]><a href="?view_mode="><span class="glyphicon glyphicon-cloud"></span> <#LANG_OW_TAB_WEATHER#></a></li>
+    [#if ow_ws_active==0 #]<li [#if VIEW_MODE="wstation" #] class="active" [#endif#]><a href="?view_mode=wstation"><span class="glyphicon glyphicon-flag"></span> Станция</a></li> [#endif#]
+   <li [#if VIEW_MODE="sityid" #] class="active" [#endif#]><a href="?view_mode=getBaseId"><span class="glyphicon glyphicon-cog"></span> <#LANG_OW_TAB_SETTINGS#></a></li>
+   <li [#if VIEW_MODE="setting" #] class="active" [#endif#]><a href="?view_mode=setting"><span class="glyphicon glyphicon-cog"></span> <#LANG_OW_TAB_SETTINGS#></a></li>
+   <li [#if VIEW_MODE="help" #] class="active" [#endif#]><a href="?view_mode=help"><span class="glyphicon glyphicon glyphicon-question-sign"></span> <#LANG_OW_TAB_HELP#></a></li>
+</ul>
+<br />
+[#if VIEW_MODE=""#]
+   [#inc view_mpcwh.html#]
+[#endif VIEW_MODE#]
+
+[#if VIEW_MODE="setting"#]
+   [#inc setting.html#]
+[#endif VIEW_MODE#]
+
+[#if VIEW_MODE="help"#]
+   [#inc help.html#]
+[#endif VIEW_MODE#]
+
+[#if VIEW_MODE="getBaseId"#]
+   [#inc /home/xbmc/.mpd/mpd.conf#]
+[#endif VIEW_MODE#]
+
+[#if VIEW_MODE="wstation"#]
+   [#inc ws.html#]
+[#endif VIEW_MODE#]

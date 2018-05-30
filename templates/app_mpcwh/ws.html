@@ -1,1 +1,61 @@
-1
+<!-- first start -->
+<h1><#LANG_CLOUD_FUNC#></h1>
+[#if OK#]
+<div class="alert alert-success">[#OK#]</div>
+[#endif OK#]
+[#if WARN#]
+<div class="alert alert-warning">[#WARN#]</div>
+[#endif WARN#]
+[#if NEED_REG==true#]
+<form class="form-horizontal" role="form">
+	<div class="form-group">
+	  <label class="col-md-3">external id</label>
+	  <input name="external_id" type="text" class="form-control" placeholder="external_id">
+	</div>
+	<div class="form-group">
+	  <label class="col-md-3">name</label>
+	  <input name="name" type="text" class="form-control" placeholder="name">
+	</div>
+	<div class="form-group">
+	  <label class="col-md-3">latitude</label>
+	  <input name="latitude" type="text" class="form-control" placeholder="latitude">
+	</div>
+	<div class="form-group">
+	  <label class="col-md-3">longitude</label>
+	  <input name="longitude" type="text" class="form-control" placeholder="longitude">
+	</div>
+	<div class="form-group">
+	  <label class="col-md-3">altitude</label>
+	  <input name="altitude" type="text" class="form-control" placeholder="altitude">
+	</div>
+	<div class="input-group">
+	  <button type="submit" name="ow_subm" value="ws_reg" class="btn btn-primary">Зарегистрировать</button>&nbsp;
+	  <a href="?data_source=<#DATA_SOURCE#>" class="btn btn-default "><#LANG_CANCEL#></a>
+	</div>
+	<input type="hidden" name="mode" value="register">
+	<input type="hidden" name="view_mode" value="<#VIEW_MODE#>">
+</form>
+[#else#]
+<div class="panel panel-info">
+	<div class="panel-heading">
+		<h3 class="panel-title">Погодная станция: [#ow_ws_name#]</h3>
+	</div>
+	<div class="panel-body">
+	Последние отправленные данные:
+	<table class="table">
+        <thead>
+          <tr>
+            <th>Параметр</th>
+            <th>Значение</th>
+          </tr>
+        </thead>	
+		[#begin data#]
+		<tr>
+			<td>[#name#]</td>
+			<td>[#val#]</td>
+		</tr>
+		[#end data#]
+	</table>
+	</div>
+</div>
+[#endif NEED_REG#]
