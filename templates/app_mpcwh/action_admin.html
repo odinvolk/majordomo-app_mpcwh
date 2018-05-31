@@ -1,28 +1,80 @@
-<h4><#LANG_OW_APP_NAME#></h4>
-<ul class="nav nav-tabs">     
-   <li [#if VIEW_MODE="" #] class="active" [#endif#]><a href="?view_mode="><span class="glyphicon glyphicon-cloud"></span> <#LANG_OW_TAB_WEATHER#></a></li>
-    [#if ow_ws_active==0 #]<li [#if VIEW_MODE="wstation" #] class="active" [#endif#]><a href="?view_mode=wstation"><span class="glyphicon glyphicon-flag"></span> Станция</a></li> [#endif#]
-   <li [#if VIEW_MODE="sityid" #] class="active" [#endif#]><a href="?view_mode=getBaseId"><span class="glyphicon glyphicon-cog"></span> <#LANG_OW_TAB_SETTINGS#></a></li>
+<div>
+<img src="../img/modules/app_mpcwh.svg" width="40px">
+ &nbsp;&nbsp;<a class="btn btn-default" href="#" onClick="$('#api_settings').toggle();return false;"><#LANG_SETUP#></a>
+ &nbsp;&nbsp;<a class="btn btn-default" href="?data_source=<#DATA_SOURCE#>&view_mode=get&tab=">GET DATA</a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+	[#if CYCLERUN==1#]
+		<span class="label label-success" title="Статус цикла">Цикл запущен</span>
+	[#else#]
+		<span class="label label-danger" title="Статус цикла">Цикл остановлен</span>
+	[#endif#]
+
+ &nbsp; 
+</div>
+
+<div style="display:none" id='api_settings'>
+
+&nbsp;
+<form action="?" method="post" enctype="multipart/form-data" name="frmEdit" class="form-horizontal">
+&nbsp;&nbsp;<a class="btn btn-default" href="?data_source=<#DATA_SOURCE#>&view_mode=upd_PROPERTY_NAME&tab=">UPD</a>	
+<fieldset>
+
+<div class="form-group">
+ <label class="control-label"[#if ERR_SERVER#] style="color:red;font-weight:bold"[#endif#]><#LANG_WH_ENABLE_EVENTS#>:<span style="color:blue">(*)</span></label>
+ <div class="controls"><input type="text" name="enable_events" value="[#ENABLE_EVENTS#]" class="input"></div>
+</div>
+
+				<div class="controls"><input type="checkbox" id="enable_events" name="enable_events" data-toggle="collapse" data-target="#enable_events" value="1"
+				<label class="control-label">&nbsp;&nbsp;&nbsp;&nbsp;Уведомлять  об изменении погоды</label>
+					 [#if ENABLE_EVENTS="1" #] checked[#endif#]
+
+	</div>
+
+<table>
+
+
+ <tr><td>
+<div class="form-group">
+ <label class="control-label"><#LANG_WH_UUID#>:</label>
+ <div class="controls"><input type="text" name="duuid" value="[#DUUID#]" class="input">  </div>
+  </td><td>
+ <label class="control-label"><#LANG_WH_DEVICEID#>:</label>
+ <div class="controls"><input type="text" name="deviceid" value="[#DEVICEID#]" class="input">
+</div>
+ </td><td>
+
+<div class="form-group">
+ <label class="control-label">
+ <#LANG_AUTO_UPDATE_PERIOD#>:(*)
+ </label>
+</div>
+ </td><td>
+<div class="form-actions">
+<button type="submit" name="subm" value="Submit" class="btn btn-primary"><#LANG_UPDATE#></button>
+<input type="hidden" name="view_mode" value="update_settings">
+<input type="hidden" name="mode" value="update">
+</div>
+	</td></tr>
+ </table>
+
+
+ [#inc config.html#] 
+	[#inc config_edit.html#]
+
+</fieldset>
+</form>
+</div>
+
+<ul class="nav nav-tabs">
+   <li [#if VIEW_MODE="" #] class="active" [#endif#]><a href="?view_mode=">Основное окно</a></li>
+    [#if ow_ws_active==1 #]<li [#if VIEW_MODE="wstation" #] class="active" [#endif#]><a href="?view_mode=wstation"><span class="glyphicon glyphicon-flag"></span> Станция</a></li> [#endif#]
    <li [#if VIEW_MODE="setting" #] class="active" [#endif#]><a href="?view_mode=setting"><span class="glyphicon glyphicon-cog"></span> <#LANG_OW_TAB_SETTINGS#></a></li>
    <li [#if VIEW_MODE="help" #] class="active" [#endif#]><a href="?view_mode=help"><span class="glyphicon glyphicon glyphicon-question-sign"></span> <#LANG_OW_TAB_HELP#></a></li>
 </ul>
-<br />
-[#if VIEW_MODE=""#]
-   [#inc view_mpcwh.html#]
-[#endif VIEW_MODE#]
 
-[#if VIEW_MODE="setting"#]
-   [#inc setting.html#]
-[#endif VIEW_MODE#]
-
-[#if VIEW_MODE="help"#]
-   [#inc help.html#]
-[#endif VIEW_MODE#]
-
-[#if VIEW_MODE="getBaseId"#]
-   [#inc /home/xbmc/.mpd/mpd.conf#]
-[#endif VIEW_MODE#]
-
-[#if VIEW_MODE="wstation"#]
-   [#inc ws.html#]
-[#endif VIEW_MODE#]
+[#if VIEW_MODE=""#] [#inc view_mpcwh.html#] [#endif VIEW_MODE#]
+[#if VIEW_MODE="setting"#] [#inc setting.html#] [#endif VIEW_MODE#]
+[#if VIEW_MODE="help"#] [#inc help.html#] [#endif VIEW_MODE#]
+[#if VIEW_MODE="getBaseId"#] [#inc get_baseid.html] [#endif VIEW_MODE#]
+[#if VIEW_MODE="wstation"#] [#inc ws.html#] [#endif VIEW_MODE#]
