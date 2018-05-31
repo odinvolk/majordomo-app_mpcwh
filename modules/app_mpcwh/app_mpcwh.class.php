@@ -8,7 +8,7 @@
 */
 //
 //
-class mpcwh extends module {
+class app_mpcwh extends module {
 /**
 * mpcwh
 *
@@ -16,7 +16,7 @@ class mpcwh extends module {
 *
 * @access private
 */
-function mpcwh() {
+function app_mpcwh() {
   $this->name="app_mpcwh";
   $this->title="MPC Web Shell";
   $this->module_category="<#LANG_SECTION_APPLICATIONS#>";
@@ -127,26 +127,7 @@ function mpcwh() {
 * @access public
 */
 function admin(&$out) {
- $this->getConfig();
- $out['API_URL']=$this->config['API_URL'];
- if (!$out['API_URL']) {
-  $out['API_URL']='http://';
- }
- $out['API_KEY']=$this->config['API_KEY'];
- $out['API_USERNAME']=$this->config['API_USERNAME'];
- $out['API_PASSWORD']=$this->config['API_PASSWORD'];
- if ($this->view_mode=='update_settings') {
-   global $api_url;
-   $this->config['API_URL']=$api_url;
-   global $api_key;
-   $this->config['API_KEY']=$api_key;
-   global $api_username;
-   $this->config['API_USERNAME']=$api_username;
-   global $api_password;
-   $this->config['API_PASSWORD']=$api_password;
-   $this->saveConfig();
-   $this->redirect("?");
- }
+
 }
 /**
 * FrontEnd
@@ -156,9 +137,6 @@ function admin(&$out) {
 * @access public
 */
 function usual(&$out) {
- if ($this->owner->action=='apps') {
-  $this->redirect(ROOTHTML."modules/app_mpcwh/index.php");
- }
  $this->admin($out);
 }
 /**
